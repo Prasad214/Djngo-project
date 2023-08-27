@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block b1 %}
+    <table style="margin-left: auto;margin-right: auto;">
+        <thead>
+            <th>#CID</th>
+            <th>COURSE</th>
+            <th>DURATION</th>
+            <th>FEE</th>
+            <th>TRAINER</th>
+            <th>ACTIONS</th>
+        </thead>
+        <tbody>
+            {% for course in courses %}
+                <tr>
+                    <td>{{course.id}}</td>
+                    <td>{{course.cname}}</td>
+                    <td>{{course.dur}}</td>
+                    <td>{{course.fee}}</td>
+                    <td>{{course.trainer}}</td>
+                    <td>
+                        <a href="{% url 'app1:updatecourse' course.id %}">UPDATE</a>
+                    </td>
+                    <td>
+                        <form action="{% url 'app1:deletecourse' course.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="submit" value="DELETE">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock b1 %}

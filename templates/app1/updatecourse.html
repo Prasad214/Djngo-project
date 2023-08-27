@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block b1 %}
+    <h3 class="text-center alert alert-info">UPDATE COURSE</h3>
+    <form action="{% url 'app1:updatecourse' id %}" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="UPDATE" class="btn btn-success">
+    </form>
+{% endblock b1 %}

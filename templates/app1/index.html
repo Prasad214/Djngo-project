@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block b1 %}
+<div class="row">
+    <div class="col-sm-4">
+        <h3 class="text-center alert alert-info">NEW COURSE</h3>
+        <form method="post" action="{% url 'app1:newcourse' %}" class="form-control">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="ADD" class="btn btn-success">
+            <input type="reset" value="CANCEL" class="btn btn-warning">
+        </form>
+    </div>
+    <div class="col-sm-8">
+        <h3 class="text-center alert alert-info">COURSES</h3>
+        {% if courses %}
+        <table class="table table-hover">
+            <thead>
+                <th scope="col">#CID</th>
+                <th scope="col">COURSE</th>
+                <th scope="col">DURATION</th>
+                <th scope="col">FEE</th>
+                <th scope="col">TRAINER</th>
+                <th scope="col">ACTION</th>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                    <tr>
+                        <th scope="row">{{course.id}}</th>
+                        <td>{{course.cname}}</td>
+                        <td>{{course.dur}}</td>
+                        <td>{{course.fee}}</td>
+                        <td>{{course.trainer}}</td>
+                        <td>
+                            <a class="btn btn-warning htn-sm" href="{% url 'app1:updatecourse' course.id %}">UPDATE</a>
+                        </td>
+                        <td>
+                            <form action="{% url 'app1:deletecourse' course.id %}" method="post">
+                                {% csrf_token %}
+                                <input class="btn btn-danger htn-sm" type="submit" value="DELETE">
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <h3 class="text-center alert alert-danger">NO DATA</h3>
+        {% endif %}
+    </div>
+</div>
+{% endblock b1 %}
